@@ -25,7 +25,7 @@ public class BootReceiver extends BroadcastReceiver {
 				Class<?> serviceClass = ReflectionHelper.LoadClass(serviceList[i]);
 
 				Intent serviceIntent = new Intent(context, serviceClass);         
-				context.startService(serviceIntent);
+				context.startForegroundService(serviceIntent);
 			}
 		}
 	} 
