@@ -3,7 +3,7 @@ package com.red_folder.phonegap.plugin.backgroundservice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
+import android.os.Build;
 public class BootReceiver extends BroadcastReceiver {  
 	
 	/*
@@ -24,8 +24,12 @@ public class BootReceiver extends BroadcastReceiver {
 				// Gets the class from string
 				Class<?> serviceClass = ReflectionHelper.LoadClass(serviceList[i]);
 
-				Intent serviceIntent = new Intent(context, serviceClass);         
-				context.startService(serviceIntent);
+				Intent serviceIntent = new Intent(context, serviceClass);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					context.startForegroundService(serviceIntent);
+				} else {
+					context.startService(serviceIntent);
+				}
 			}
 		}
 	} 
